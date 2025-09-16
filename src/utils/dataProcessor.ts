@@ -1,5 +1,3 @@
-import Papa from 'papaparse';
-
 export interface VietnameseItem {
   id: number;
   vietnamese: string;
@@ -11,7 +9,7 @@ export interface VietnameseItem {
 }
 
 export interface QuizItem extends VietnameseItem {
-  options: string[]; // 4개의 이미지 URL (1개 정답 + 3개 오답)
+  options: { imageUrl: string; koreanMeaning: string }[]; // 4개의 옵션 (이미지 URL + 한국어 의미)
   correctIndex: number; // 정답 이미지의 인덱스
 }
 
@@ -23,14 +21,26 @@ export interface Stage {
   isUnlocked: boolean;
 }
 
+// 간단한 CSV 파서
+const parseCSV = (csvText: string): any[] => {
+  const lines = csvText.trim().split('\n');
+  const headers = lines[0].split(',').map(h => h.trim());
+
+  return lines.slice(1).map(line => {
+    const values = line.split(',').map(v => v.trim());
+    const row: any = {};
+    headers.forEach((header, index) => {
+      row[header] = values[index] || '';
+    });
+    return row;
+  });
+};
+
 // CSV 데이터를 파싱하여 VietnameseItem 배열로 변환
 export const parseCSVData = (csvText: string): VietnameseItem[] => {
-  const results = Papa.parse(csvText, {
-    header: true,
-    skipEmptyLines: true,
-  });
+  const data = parseCSV(csvText);
 
-  return results.data.map((row: any, index: number) => ({
+  return data.map((row, index) => ({
     id: index + 1,
     vietnamese: row.Vietnamese || '',
     korean: row.Korean || '',
@@ -68,13 +78,16 @@ export const createStages = (items: VietnameseItem[]): Stage[] => {
 // 객관식 퀴즈용 데이터 생성 (각 문제마다 4개 옵션)
 const createQuizItems = (stageItems: VietnameseItem[], allItems: VietnameseItem[]): QuizItem[] => {
   return stageItems.map(item => {
-    const correctImage = item.imagesUrl;
-    const wrongImages = getRandomWrongImages(item.id, allItems, 3);
+    const correctOption = {
+      imageUrl: item.imagesUrl,
+      koreanMeaning: item.koreanSentence
+    };
+    const wrongOptions = getRandomWrongOptions(item.id, allItems, 3);
 
     // 옵션 섞기
-    const options = [correctImage, ...wrongImages];
+    const options = [correctOption, ...wrongOptions];
     const shuffledOptions = shuffleArray(options);
-    const correctIndex = shuffledOptions.indexOf(correctImage);
+    const correctIndex = shuffledOptions.findIndex(option => option.imageUrl === item.imagesUrl);
 
     return {
       ...item,
@@ -84,7 +97,17 @@ const createQuizItems = (stageItems: VietnameseItem[], allItems: VietnameseItem[
   });
 };
 
-// 랜덤 오답 이미지 3개 선택
+// 랜덤 오답 옵션 3개 선택
+const getRandomWrongOptions = (currentId: number, allItems: VietnameseItem[], count: number): { imageUrl: string; koreanMeaning: string }[] => {
+  const wrongItems = allItems.filter(item => item.id !== currentId);
+  const shuffled = shuffleArray(wrongItems);
+  return shuffled.slice(0, count).map(item => ({
+    imageUrl: item.imagesUrl,
+    koreanMeaning: item.koreanSentence
+  }));
+};
+
+// 랜덤 오답 이미지 3개 선택 (기존 함수 유지)
 const getRandomWrongImages = (currentId: number, allItems: VietnameseItem[], count: number): string[] => {
   const wrongItems = allItems.filter(item => item.id !== currentId);
   const shuffled = shuffleArray(wrongItems);

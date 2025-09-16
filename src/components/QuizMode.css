@@ -1,0 +1,192 @@
+.quiz-mode {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.quiz-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.quiz-header h2 {
+  color: #333;
+  margin-bottom: 0.5rem;
+}
+
+.quiz-progress {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.quiz-content {
+  background: white;
+  border-radius: 1rem;
+  padding: 2rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.question-section {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.vietnamese-sentence h3 {
+  font-size: 1.5rem;
+  color: #333;
+  margin-bottom: 1rem;
+  line-height: 1.4;
+}
+
+.audio-controls {
+  margin-bottom: 1rem;
+}
+
+.options-section h4 {
+  text-align: center;
+  color: #666;
+  margin-bottom: 1.5rem;
+  font-size: 1.1rem;
+}
+
+.options-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.option-card {
+  border: 3px solid #e9ecef;
+  border-radius: 0.75rem;
+  padding: 1rem;
+  cursor: pointer;
+  transition: all 0.3s;
+  text-align: center;
+  background: white;
+}
+
+.option-card:hover {
+  border-color: #667eea;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.option-card.selected {
+  border-color: #ffc107;
+  background: #fff3cd;
+}
+
+.option-card.correct {
+  border-color: #28a745;
+  background: #d4edda;
+}
+
+.option-card.incorrect {
+  border-color: #dc3545;
+  background: #f8d7da;
+}
+
+.option-card img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.korean-text {
+  font-size: 0.9rem;
+  color: #666;
+  font-weight: 500;
+}
+
+.result-section {
+  text-align: center;
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid #e9ecef;
+}
+
+.result-message {
+  margin-bottom: 1.5rem;
+  padding: 1.5rem 1rem;
+  border-radius: 0.5rem;
+  min-height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.result-message.success {
+  background: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.result-message.error {
+  background: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+.result-message p {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 0;
+  text-align: center;
+}
+
+.countdown-text {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #666;
+  margin-top: 0.5rem;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .quiz-content {
+    padding: 1rem;
+  }
+
+  .vietnamese-sentence h3 {
+    font-size: 1.25rem;
+  }
+
+  .options-grid {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+
+  .option-card {
+    padding: 0.75rem;
+  }
+
+  .option-card img {
+    height: 120px;
+  }
+}
+
+@media (max-width: 480px) {
+  .quiz-header h2 {
+    font-size: 1.25rem;
+  }
+
+  .vietnamese-sentence h3 {
+    font-size: 1.1rem;
+  }
+
+  .options-section h4 {
+    font-size: 1rem;
+  }
+
+  .option-card img {
+    height: 100px;
+  }
+
+  .korean-text {
+    font-size: 0.8rem;
+  }
+}

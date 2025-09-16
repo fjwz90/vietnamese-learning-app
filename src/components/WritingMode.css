@@ -1,0 +1,194 @@
+.writing-mode {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.writing-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.writing-header h2 {
+  color: #333;
+  margin-bottom: 0.5rem;
+}
+
+.writing-progress {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.writing-content {
+  background: white;
+  border-radius: 1rem;
+  padding: 2rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.question-section {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.image-container {
+  margin-bottom: 1.5rem;
+}
+
+.image-container img {
+  width: 100%;
+  max-width: 300px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.korean-meaning {
+  margin-top: 1rem;
+  padding: 0.75rem;
+  background: #f8f9fa;
+  border-radius: 0.5rem;
+  color: #495057;
+  font-weight: 500;
+}
+
+.audio-controls {
+  margin-bottom: 1rem;
+}
+
+.input-section h4 {
+  text-align: center;
+  color: #666;
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+}
+
+.hint-section {
+  background: #fff3cd;
+  border: 1px solid #ffeaa7;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.hint-section p {
+  font-family: monospace;
+  font-size: 1.1rem;
+  color: #856404;
+  margin: 0 0 0.5rem 0;
+  letter-spacing: 0.05em;
+}
+
+.hint-section small {
+  color: #856404;
+  font-weight: 500;
+}
+
+.answer-input {
+  width: 100%;
+  padding: 1rem;
+  border: 2px solid #e9ecef;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  font-family: inherit;
+  resize: vertical;
+  margin-bottom: 1rem;
+  transition: border-color 0.3s;
+}
+
+.answer-input:focus {
+  outline: none;
+  border-color: #667eea;
+}
+
+.answer-input:disabled {
+  background: #f8f9fa;
+  color: #6c757d;
+}
+
+.result-section {
+  text-align: center;
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid #e9ecef;
+}
+
+.result-message {
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  border-radius: 0.5rem;
+}
+
+.result-message.success {
+  background: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.result-message p {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 0 0 0.5rem 0;
+}
+
+.correct-answer {
+  font-family: monospace;
+  font-size: 1.2rem;
+  background: #f8f9fa;
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+  display: inline-block;
+  margin-top: 0.5rem;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .writing-content {
+    padding: 1rem;
+  }
+
+  .image-container img {
+    height: 150px;
+    max-width: 250px;
+  }
+
+  .korean-meaning {
+    font-size: 0.9rem;
+  }
+
+  .answer-input {
+    font-size: 0.9rem;
+    padding: 0.75rem;
+  }
+
+  .hint-section p {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .writing-header h2 {
+    font-size: 1.25rem;
+  }
+
+  .image-container img {
+    height: 120px;
+    max-width: 200px;
+  }
+
+  .input-section h4 {
+    font-size: 1rem;
+  }
+
+  .answer-input {
+    font-size: 0.85rem;
+    padding: 0.6rem;
+  }
+
+  .correct-answer {
+    font-size: 1rem;
+  }
+}
