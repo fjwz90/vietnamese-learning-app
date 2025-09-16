@@ -144,6 +144,13 @@
   margin-top: 0.5rem;
 }
 
+.countdown-text {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #666;
+  margin-top: 0.5rem;
+}
+
 /* Mobile Responsiveness */
 @media (max-width: 768px) {
   .writing-content {
