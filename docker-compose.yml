@@ -1,19 +1,15 @@
-version: '3.8'
-
 services:
   vietnamese-learning-app:
     build:
       context: .
       dockerfile: Dockerfile
-    ports:
-      - "8080:80"
     container_name: vietnamese-learning-app
     restart: unless-stopped
     environment:
       - NODE_ENV=production
     networks:
-      - vietnamese-learning-network
+      - admin_proxy-net   # ✅ 기존 네트워크로 연결
 
 networks:
-  vietnamese-learning-network:
-    driver: bridge
+  admin_proxy-net:
+    external: true        # ✅ 이미 생성된 외부 네트워크 사용
