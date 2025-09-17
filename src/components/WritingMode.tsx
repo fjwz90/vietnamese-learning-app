@@ -15,7 +15,6 @@ const WritingMode: React.FC<WritingModeProps> = ({ stage, onComplete }) => {
   const [attempts, setAttempts] = useState(0);
   const [correctAnswers, setCorrectAnswers] = useState(0);
   const [audioPlaying, setAudioPlaying] = useState(false);
-  const [countdown, setCountdown] = useState<number | null>(null);
 
   const currentQuestion = stage.items[currentQuestionIndex];
   const isLastQuestion = currentQuestionIndex === stage.items.length - 1;
@@ -59,18 +58,6 @@ const WritingMode: React.FC<WritingModeProps> = ({ stage, onComplete }) => {
     if (isCorrect) {
       setCorrectAnswers(prev => prev + 1);
       setShowResult(true);
-      // 정답을 맞췄을 때 카운트다운 시작
-      setCountdown(2);
-      const timer = setInterval(() => {
-        setCountdown(prev => {
-          if (prev === null || prev <= 1) {
-            clearInterval(timer);
-            handleNextQuestion();
-            return null;
-          }
-          return prev - 1;
-        });
-      }, 1000);
     } else {
       setAttempts(prev => prev + 1);
       if (attempts >= 4) {
@@ -129,6 +116,8 @@ const WritingMode: React.FC<WritingModeProps> = ({ stage, onComplete }) => {
             <img
               src={currentQuestion.imagesUrl}
               alt="학습 이미지"
+              onClick={handleReplayAudio}
+              style={{ cursor: 'pointer' }}
               onError={(e) => {
                 const target = e.target as HTMLImageElement;
                 target.src = '/placeholder-image.png';
@@ -138,21 +127,9 @@ const WritingMode: React.FC<WritingModeProps> = ({ stage, onComplete }) => {
               {currentQuestion.koreanSentence}
             </div>
           </div>
-
-          <div className="audio-controls">
-            <button
-              className="btn btn-secondary"
-              onClick={handleReplayAudio}
-              disabled={audioPlaying}
-            >
-              🔊 {audioPlaying ? '재생 중...' : '다시 듣기'}
-            </button>
-          </div>
         </div>
 
         <div className="input-section">
-          <h4>베트남어로 써보세요:</h4>
-
           {hintLevel > 0 && !showResult && (
             <div className="hint-section">
               <p>힌트: {generateHint(currentQuestion.vietnameseSentence, hintLevel)}</p>
@@ -183,20 +160,15 @@ const WritingMode: React.FC<WritingModeProps> = ({ stage, onComplete }) => {
                 <div>
                   <p>✅ 정답입니다!</p>
                   <p className="correct-answer">{currentQuestion.vietnameseSentence}</p>
-                  {countdown !== null && (
-                    <p className="countdown-text">{countdown}초 후 다음 문제로 이동합니다...</p>
-                  )}
                 </div>
               </div>
 
-              {countdown === null && (
-                <button
-                  className="btn btn-primary"
-                  onClick={handleNextQuestion}
-                >
-                  {isLastQuestion ? '단계 완료' : '다음 문제'}
-                </button>
-              )}
+              <button
+                className="btn btn-primary"
+                onClick={handleNextQuestion}
+              >
+                {isLastQuestion ? '단계 완료' : '다음 문제'}
+              </button>
             </div>
           )}
         </div>

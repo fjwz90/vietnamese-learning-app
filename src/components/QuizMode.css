@@ -47,11 +47,6 @@
   line-height: 1.4;
 }
 
-.replay-btn {
-  font-size: 0.8rem;
-  padding: 0.5rem 0.75rem;
-  border-radius: 0.5rem;
-}
 
 .audio-controls {
   margin-bottom: 1rem;
@@ -152,12 +147,6 @@
   text-align: center;
 }
 
-.countdown-text {
-  font-size: 0.9rem;
-  font-weight: 500;
-  color: #666;
-  margin-top: 0.5rem;
-}
 
 /* Mobile Responsiveness */
 @media (max-width: 768px) {

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Stage } from '../utils/dataProcessor';
 import './QuizMode.css';
 
@@ -13,7 +13,6 @@ const QuizMode: React.FC<QuizModeProps> = ({ stage, onComplete }) => {
   const [showResult, setShowResult] = useState(false);
   const [correctAnswers, setCorrectAnswers] = useState(0);
   const [audioPlaying, setAudioPlaying] = useState(false);
-  const [countdown, setCountdown] = useState<number | null>(null);
 
   const currentQuestion = stage.quizItems[currentQuestionIndex];
   const isLastQuestion = currentQuestionIndex === stage.quizItems.length - 1;
@@ -43,18 +42,6 @@ const QuizMode: React.FC<QuizModeProps> = ({ stage, onComplete }) => {
 
     if (answerIndex === currentQuestion.correctIndex) {
       setCorrectAnswers(prev => prev + 1);
-      // 정답을 맞췄을 때 카운트다운 시작
-      setCountdown(2);
-      const timer = setInterval(() => {
-        setCountdown(prev => {
-          if (prev === null || prev <= 1) {
-            clearInterval(timer);
-            handleNextQuestion();
-            return null;
-          }
-          return prev - 1;
-        });
-      }, 1000);
     }
   };
 
@@ -101,14 +88,12 @@ const QuizMode: React.FC<QuizModeProps> = ({ stage, onComplete }) => {
       <div className="quiz-content">
         <div className="question-section">
           <div className="vietnamese-sentence">
-            <h3>{currentQuestion.vietnameseSentence}</h3>
-            <button
-              className="btn btn-secondary replay-btn"
+            <h3
               onClick={handleReplayAudio}
-              disabled={audioPlaying}
+              style={{ cursor: 'pointer', userSelect: 'none' }}
             >
-              🔊 {audioPlaying ? '재생 중...' : '다시 듣기'}
-            </button>
+              {currentQuestion.vietnameseSentence}
+            </h3>
           </div>
         </div>
 
@@ -150,25 +135,18 @@ const QuizMode: React.FC<QuizModeProps> = ({ stage, onComplete }) => {
           <div className="result-section">
             <div className={`result-message ${selectedAnswer === currentQuestion.correctIndex ? 'success' : 'error'}`}>
               {selectedAnswer === currentQuestion.correctIndex ? (
-                <div>
-                  <p>✅ 정답입니다!</p>
-                  {countdown !== null && (
-                    <p className="countdown-text">{countdown}초 후 다음 문제로 이동합니다...</p>
-                  )}
-                </div>
+                <p>✅ 정답입니다!</p>
               ) : (
                 <p>❌ 틀렸습니다. 정답은 위의 이미지입니다.</p>
               )}
             </div>
 
-            {selectedAnswer !== currentQuestion.correctIndex && (
-              <button
-                className="btn btn-primary"
-                onClick={handleNextQuestion}
-              >
-                {isLastQuestion ? '단계 완료' : '다음 문제'}
-              </button>
-            )}
+            <button
+              className="btn btn-primary"
+              onClick={handleNextQuestion}
+            >
+              {isLastQuestion ? '단계 완료' : '다음 문제'}
+            </button>
           </div>
         )}
       </div>
