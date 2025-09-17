@@ -74,7 +74,7 @@ const QuizMode: React.FC<QuizModeProps> = ({ stage, onComplete }) => {
     playAudio(currentQuestion.ttsUrl);
   };
 
-  // 컴포넌트 마운트 시 첫 번째 오디오 자동 재생
+  // 컴포넌트 마운트 시 첫 번째 오디오 자동 재생, 다음 질문으로 넘어가면 재생
   useEffect(() => {
     if (currentQuestion && !showResult) {
       const timer = setTimeout(() => {
@@ -82,7 +82,7 @@ const QuizMode: React.FC<QuizModeProps> = ({ stage, onComplete }) => {
       }, 500);
       return () => clearTimeout(timer);
     }
-  }, [currentQuestionIndex]);
+  }, [currentQuestionIndex, showResult]);
 
   if (!currentQuestion) {
     return <div>질문을 로드하는 중...</div>;
@@ -102,11 +102,8 @@ const QuizMode: React.FC<QuizModeProps> = ({ stage, onComplete }) => {
         <div className="question-section">
           <div className="vietnamese-sentence">
             <h3>{currentQuestion.vietnameseSentence}</h3>
-          </div>
-
-          <div className="audio-controls">
             <button
-              className="btn btn-secondary"
+              className="btn btn-secondary replay-btn"
               onClick={handleReplayAudio}
               disabled={audioPlaying}
             >
@@ -116,7 +113,6 @@ const QuizMode: React.FC<QuizModeProps> = ({ stage, onComplete }) => {
         </div>
 
         <div className="options-section">
-          <h4>어느 이미지가 맞을까요?</h4>
           <div className="options-grid">
             {currentQuestion.options.map((option, index) => (
               <div
