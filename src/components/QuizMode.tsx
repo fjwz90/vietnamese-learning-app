@@ -133,19 +133,11 @@ const QuizMode: React.FC<QuizModeProps> = ({ stage, onComplete }) => {
 
         {showResult && (
           <div className="result-section">
-            <div className={`result-message ${selectedAnswer === currentQuestion.correctIndex ? 'success' : 'error'}`}>
-              {selectedAnswer === currentQuestion.correctIndex ? (
-                <p>✅ 정답입니다!</p>
-              ) : (
-                <p>❌ 틀렸습니다. 정답은 위의 이미지입니다.</p>
-              )}
-            </div>
-
             <button
-              className="btn btn-primary"
+              className={`result-button ${selectedAnswer === currentQuestion.correctIndex ? 'success' : 'error'}`}
               onClick={handleNextQuestion}
             >
-              {isLastQuestion ? '단계 완료' : '다음 문제'}
+              {selectedAnswer === currentQuestion.correctIndex ? '✅정답 - 다음' : '❌ 오답 - 다음'}
             </button>
           </div>
         )}

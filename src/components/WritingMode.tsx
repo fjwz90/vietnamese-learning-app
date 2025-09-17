@@ -156,18 +156,11 @@ const WritingMode: React.FC<WritingModeProps> = ({ stage, onComplete }) => {
             </button>
           ) : (
             <div className="result-section">
-              <div className="result-message success">
-                <div>
-                  <p>✅ 정답입니다!</p>
-                  <p className="correct-answer">{currentQuestion.vietnameseSentence}</p>
-                </div>
-              </div>
-
               <button
-                className="btn btn-primary"
+                className="result-button success"
                 onClick={handleNextQuestion}
               >
-                {isLastQuestion ? '단계 완료' : '다음 문제'}
+                ✅정답 - 다음
               </button>
             </div>
           )}
